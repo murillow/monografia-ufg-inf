@@ -1,0 +1,5 @@
+\keys{HTTP/2 Client, Lua Language, Event-driven Programming}
+
+\begin{abstract}{Implementation of a multi-platform HTTP/2 client library in Lua.}
+HTTP/2 client libraries allow the writing of highly generic HTTP/2 client code, especially in {\em scripting} programming languages. However, only one HTTP/2 client library is available for the Lua language and it is not multiplatform, since it works only on UNIX-like operating systems. This limits the portability of HTTP/2 clients that use this library because Lua is a very portable language. In this work, a multi-platform HTTP/2 client library in Lua was developed. It is capable of supporting the main features of the HTTP/2 protocol, including stream multiplexing in a single TCP connection and header compression with the HPACK protocol. Tests were performed that prove the efficiency of an HTTP/2 client written on top of the library when compared with three other HTTP/2 clients: one in C (nghttp), one in JavaScript (Node.js) and another in the currently available HTTP/2 library for Lua (lua-http).
+\end{abstract}

@@ -1,0 +1,26 @@
+\chapter{Introdução}
+\label{cap:intro}
+
+Redes de computadores revolucionaram o mundo da ciência da computação. A Internet pública, uma rede de computadores específica, já é uma parte indivisível da estrutura das sociedades modernas e a força motriz por trás do seu sucesso se deve aos avanços da Web e do {\em Hypertext Transfer Protocol} (HTTP). A Web é uma aplicação cliente-servidor que permite usuários obterem páginas Web de servidores sob demanda e seu principal protocolo é o HTTP, um protocolo da camada de aplicação sem estado de requisição\slash resposta.
+
+Apesar do sucesso da Web e do HTTP, requisitar páginas Web é uma tarefa cada vez mais intensiva em recursos de rede. Com o advento das aplicações Web, do número de usuários, da velocidade dos enlaces e da capacidade da rede como um todo, a adição de mais recursos como JavaScript, CSS, imagens e fontes às páginas Web aumentaram substancialmente e atualmente essa prática é considerada aceitável.
+
+Nos últimos sete anos e seis meses, o tamanho (em kilobytes) de todos os recursos de um página Web requisitado por um computador pessoal aumentou em aproximadamente três vezes e aqueles requisitados por um dispositivo móvel aumentou em aproximadamente nove vezes \cite{HTTPArchive}. Transportar eficientemente todos esses recursos na rede é uma tarefa cada vez mais difícil.
+
+Uma das causas dessa dificuldade está relacionada ao modo como o HTTP utiliza o protocolo da camada de transporte TCP: cada requisição por uma página Web usa uma conexão TCP separada. Com muitas requisições sendo enviadas, o aumento do número de conexões TCP gera uma monopolização dos recursos de rede. A outra causa está presente nas próprias mensagens HTTP: cada mensagem é enviada em texto simples na conexão TCP, contendo muitos cabeçalhos repetitivos e extensos.
+
+Para resolver ambos esses problemas, uma nova versão do protocolo HTTP foi padronizada, denominada {\em Hypertext Transfer Protocol version 2} (HTTP/2) \cite{BelsheRFC7540}. Hoje, 46.5\% dos 1 milhão de sites mais acessados do mundo recebem requisições HTTP/2 \cite{HTTPArchive}. Nos navegadores, o HTTP/2 é suportado pelas últimas versões do Google Chrome, Mozilla Firefox, Microsoft Edge, Opera e Safari.
+
+Além dos navegadores, requisições também são feitas por clientes HTTP/2 simples, implementados em uma linguagem de programação específica. Entre essas linguagens, destacam-se as linguagens dinâmicas. Geralmente, essas linguagens oferecem bibliotecas HTTP/2 reusáveis para a implementação de clientes que fazem as requisições para os servidores.
+
+Usar bibliotecas promove mais modularidade aos códigos das aplicações e mais reusabilidade de código aos programadores, além de permitirem a escrita de códigos altamente genéricos. Com isso, clientes HTTP/2 podem ser implementados de modo independente desde que uma API ({\em Application Programming Interface}) bem definida seja fornecida pela biblioteca.
+
+Entre as linguagens dinâmicas, a linguagem Lua \cite{Ierusalimschy2016PiL} tem se destacado não só pela flexibilidade em criar bibliotecas, mas também pela sua alta eficiência. Essa combinação a torna uma linguagem interessante para implementar o lado cliente do HTTP/2, visto que esse protocolo demanda eficiência por parte das implementações para que seus benefícios de desempenho às aplicações sejam mais bem aproveitados.
+
+Lua também foi criada com portabilidade em mente porque foi implementada em ANSI (ISO) C e é pequena em tamanho. A biblioteca HTTP/2 atual \cite{DaurminatorLuaHTTP} disponível para Lua não segue esse objetivo porque ela só pode ser usada em sistemas operacionais derivados do UNIX e portanto não é uma biblioteca portátil multiplataforma. Ela é uma biblioteca externa e não faz parte do conjunto de bibliotecas padrões de Lua.
+
+O propósito deste trabalho é apresentar uma implementação de uma biblioteca cliente HTTP/2 multiplataforma escrita em Lua. O intuito é fornecer suporte HTTP/2 para que aplicações Web escritas em Lua aproveitem os benefícios de desempenho trazidos por esse protocolo. Para isso, foi implementado uma biblioteca cliente capaz de prover uma API simples de um cliente HTTP/2 que pode user utilizada em qualquer aplicação Web escrita em Lua 5.3.
+
+Testes de carga ({\em benchmarks}) foram feitos com o objetivo de comparar o desempenho da implementação. Comparamos um cliente escrito em cima da biblioteca criada com outros três clientes HTTP/2: um em C (nghttp), um em JavaScript (Node.js) e outro na biblioteca HTTP/2 atualmente disponível para Lua (lua-http). Pelos resultados obtidos, o cliente escrito na biblioteca HTTP/2 deste trabalho obteve desempenho igual ou superior em relação ao desempenho dos demais clientes, demonstrando assim sua eficiência.
+
+A estrutura e a organização deste trabalho foram delineadas da seguinte forma: o Capítulo \ref{cap:theory} descreve as ferramentas conceituais do protocolo HTTP/2 e da linguagem Lua que viabilizaram a escrita da implementação; o Capítulo \ref{cap:implementation} apresenta a implementação, incluindo as decisões de projeto tomadas para orientar seu desenvolvimento e os problemas resolvidos; o Capítulo \ref{cap:results} apresenta os testes e comparações realizadas para comprovar a eficiência da implementação da biblioteca e o Capítulo \ref{cap:conclusion} apresenta as considerações finais sobre este trabalho.

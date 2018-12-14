@@ -1,0 +1,23 @@
+\chapter{Considerações Finais}
+\label{cap:conclusion}
+
+Este trabalho apresentou as características teóricas e práticas da implementação de uma biblioteca cliente HTTP/2 multiplataforma em Lua, denominada http2. A metodologia empregada para desenvolver a biblioteca http2 com a característica de ser multiplataforma tem por base o modelo de programação orientado a eventos o modelo de programação concorrente de Lua. O modelo orientado a eventos foi adotado para implementar os estados de um fluxo HTTP/2, bem como para fornecer uma API baseada em {\em callbacks}. O modelo concorrente permitiu que fluxos HTTP/2 multiplexados pudessem ser recebidos e processados de forma concorrente e assíncrona.
+
+A programação de clientes HTTP/2 é permitida através da presente biblioteca, que é multiplataforma por ser escrita inteiramente em Lua, oferecendo aos programadores uma simples API para realizarem requisições HTTP/2 simultâneas na mesma conexão TCP, aproveitando os benefícios de desempenho trazidos pelo protocolo HTTP/2. A construção de clientes HTTP/2 e de aplicações Web que executam sobre o HTTP/2 é amplamente encorajada, principalmente devido as vantagens de desempenho em relação ao HTTP/1.1.
+
+No entanto, o HTTP/2 é um protocolo complexo. É difícil implementar o lado cliente desse protocolo com todas as suas características em escala de produção. Com ciência disso, decidimos implementar apenas as funcionalidades essenciais que permitem a criação de clientes HTTP/2 em conformidade com a especificação do HTTP/2, incluindo as duas principais características do HTTP/2: a capacidade de realizar múltiplas requisições simultâneas na mesma conexão TCP e de realizar a compressão de campos de cabeçalhos utilizando o HPACK.
+
+Em termos do suporte às características do HTTP/2: permitimos multiplexação de fluxos na mesma conexão TCP; implementamos o algoritmo de compressão de campos de cabeçalhos do HTTP/2, o HPACK; implementamos os quadros {\em DATA}, {\em HEADERS}, {\em RST\_STREAM}, {\em SETTINGS}, {\em GOAWAY}, {\em WINDOW\_UPDATE} e {\em CONTINUATION}; implementamos os estados de um fluxo ocioso, aberto, semifechado (remoto) e fechado; requisições {\em GET} e {\em POST} triviais foram implementadas, possibilitando que outros métodos de requisições que são derivados desses dois (como {\em HEAD} e {\em PUT}) sejam utilizados.
+
+\section{Trabalhos Futuros}
+\label{sec:futurework}
+
+Uma primeira proposta para trabalhos futuros é a implementação das características de um cliente HTTP/2 que não foram implementadas neste projeto. Priorização de requisições podem trazer benefícios de desempenho para a aplicação quando vários fluxos são abertos. {\em Push} de requisição\slash resposta do servidor podem ser implementados e aceitos quando um servidor solicita esse mecanismo, podendo melhorar significativamente o desempenho da aplicação dependendo da política de {\em push} do servidor.
+
+Como o protocolo HTTP/2 não alterou a semântica existente do HTTP/1.1, seria interessante dar suporte a mais características especificadas do HTTP/1.1, como {\em lookups} DNS e gerenciamento de {\em cookies}.
+
+Uma outra forma de melhorar a implementação seria adicionando mais tratamentos de erros e, consequentemente, melhorando a conformidade de clientes escritos utilizando a biblioteca http2 com os tratamentos de erros do HTTP/2.
+
+Por outro lado, mudanças feitas nesses sentidos precisam ser feitas de forma transparente com o código do programador, ajustando a API para que as mudanças internas sejam refletidas externamente na utilização da biblioteca.
+
+Outra abordagem mais avançada seria reavaliar a forma de funcionamento da biblioteca Copas, levando em consideração que ela possui um único {\em loop} de estado global. Seria interessante alterar Copas para, por exemplo, não dependermos de um único {\em loop} global, de forma que possamos controlar mais facilmente a programação de clientes HTTP/2.
